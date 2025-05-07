@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Confirmation - RPM Mini</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero small">
+    <h1>Order Confirmed</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+  <main>
+    <h2>Thank You for Your Purchase!</h2>
+    <div id="confirmation-details"></div>
+  </main>
+  <footer><p>&copy; 2025 RPM Mini</p></footer>
+  <script>
+    const order = JSON.parse(localStorage.getItem("lastOrder"));
+
+    const container = document.getElementById("confirmation-details");
+
+    if (!order) {
+      container.innerHTML = "<p>No recent order found. Please place an order first.</p>";
+    } else {
+      container.innerHTML = `
+        <p><strong>Order Number:</strong> #${order.number}</p>
+        <p><strong>Estimated Delivery:</strong> ${order.delivery}</p>
+        <p><strong>Tracking:</strong> <a href="${order.tracking}" target="_blank">${order.tracking}</a></p>
+      `;
+      // Optional: clear order info after showing once
+      localStorage.removeItem("lastOrder");
+    }
+  </script>
+</body>
+</html>

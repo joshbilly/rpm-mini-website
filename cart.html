@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="hero small">
+        <h1>Shopping Cart</h1>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</>
+        <a href="track-order.html">Track Order</a>
+    </nav>
+    <main>
+        <ul id="cart-items"></ul>
+        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+            <button id="clear-cart">Clear Cart</button>
+            <a href="checkout.html"><button>Checkout</button></a>
+        </div>
+    </main>
+    <footer><p>&copy; 2025 RPM Mini</p></footer>
+    <script src="cart.js"></script>
+    <script>
+      document.getElementById("clear-cart").addEventListener("click", () => {
+          localStorage.removeItem("cart");
+          location.reload();
+      });
+
+      document.getElementById("checkout").addEventListener("click", () => {
+          alert("Checkout clicked! (Not yet implemented)");
+      });
+    </script>
+</body>
+</html>

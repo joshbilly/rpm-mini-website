@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkout - RPM Mini</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero small">
+    <h1>Checkout Page</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="track-order.html">Track Order</a>
+  </nav>
+  <main>
+    <form id="checkout-form">
+      <h2>Billing & Shipping Info</h2>
+      <label>Full Name: <input type="text" required /></label>
+      <label>Address: <input type="text" required /></label>
+      <label>City: <input type="text" required /></label>
+      <label>Zip Code: <input type="text" required /></label>
+
+      <h2>Payment Options</h2>
+      <label>Card Number: <input type="text" required /></label>
+      <label>Expiry Date: <input type="text" placeholder="MM/YY" required /></label>
+      <label>CVV: <input type="text" required /></label>
+
+      <h2>Review Summary</h2>
+      <ul id="checkout-summary"></ul>
+
+      <button type="submit">Submit Order</button>
+    </form>
+  </main>
+  <footer><p>&copy; 2025 RPM Mini</p></footer>
+  <script>
+    // Load cart data
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const summary = document.getElementById("checkout-summary");
+
+    if (cart.length === 0) {
+      summary.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+      summary.innerHTML = cart
+        .map(item => `<li>${item.name} x${item.quantity} — $${(item.price * item.quantity).toFixed(2)}</li>`)
+        .join("") +
+        `<p><strong>Total:</strong> $${cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2)}</p>`;
+    }
+
+    // Handle form submission
+    document.getElementById("checkout-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Simulate order number and redirect
+      const orderNumber = Math.floor(100000 + Math.random() * 900000);
+      localStorage.setItem("lastOrder", JSON.stringify({
+        number: orderNumber,
+        delivery: "3–5 business days",
+        tracking: `https://tracking.rpm-mini.com/${orderNumber}`
+      }));
+      localStorage.removeItem("cart"); // Clear cart after purchase
+      window.location.href = "confirmation.html";
+    });
+  </script>
+</body>
+</html>
